@@ -145,5 +145,7 @@ Technologies Used:
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Author:
+
   Omar EL Gohary | Linkedin: https://www.linkedin.com/in/omarelgohary2003/ | Penetration Testing | Network Security | AI for Security
+  
   Youssef Mohamed Azmy | Linkedin: https://www.linkedin.com/in/youssef-azmy/ |  Machine Learning & Deep Learning Enthusiast
