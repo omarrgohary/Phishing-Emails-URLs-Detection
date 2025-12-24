@@ -104,44 +104,63 @@ The project was developed and tested on Google Colab with GPU support.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 How to Run:
+  
   Upload the datasets when prompted (Google Colab)
+  
   Run all cells sequentially
 
 The script will:
+  
   Train both models
+  
   Evaluate performance
+  
   Test on unseen CSV samples
+  
   Run real-world email predictions
 
 Sample Output:
+  
   Email Prediction:
-    Subject: Urgent: Verify your bank account immediately
-    Prediction: Phishing
+  Subject: Urgent: Verify your bank account immediately
+  Prediction: Phishing
 
   URL Prediction:
-    URL: http://secure-login-paypal.verify-user.com
-    Prediction: Phishing
+ 
+  URL: http://secure-login-paypal.verify-user.com
+  
+  Prediction: Phishing
     
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Results Summary:
+
 Both models achieve strong performance across all evaluation metrics, demonstrating the effectiveness of:
+
 Transformer-based NLP for email security
+
 Hybrid deep learning + feature engineering for URL analysis
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Use Cases:
   Email security gateways
+  
   SOC phishing analysis tools
+  
   Academic research in cybersecurity & NLP
+  
   ML-based fraud detection systems
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Technologies Used:
 
   Python 3
+  
   PyTorch
+  
   HuggingFace Transformers
+  
   Scikit-learn
+  
   Google Colab (CUDA)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
