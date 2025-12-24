@@ -9,17 +9,25 @@ Phishing attacks remain one of the most common cybersecurity threats, targeting 
 This project presents a dual-model phishing detection system that identifies phishing attempts using deep learning and NLP techniques.
 
 The system consists of:
-  Email Phishing Detection using DistilBERT
-  URL Phishing Detection using a Hybrid Transformer + Feature-Based Model
-  Both models are trained, evaluated, and tested independently using real-world datasets.
+Email Phishing Detection using DistilBERT
+
+URL Phishing Detection using a Hybrid Transformer + Feature-Based Model
+
+Both models are trained, evaluated, and tested independently using real-world datasets.
   
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Key Features:
+  
   Uses state-of-the-art NLP models (DistilBERT) for email classification
+  
   Character-level Transformer encoder for URL analysis
+  
   Combines engineered URL features with learned representations
+  
   Prevents data leakage by removing label-related keywords
+  
   Supports real-world inference on unseen emails and URLs
+  
   GPU-accelerated (runs on CUDA if available)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,33 +53,50 @@ System Architecture
     Classifier: Fully Connected + Dropout
 
     A.Input:
+      
       Subject [SEP] Body
+      
       Loss: Cross-Entropy
+      
       Optimizer: AdamW
+      
       Max Sequence Length: 256
 
     B.Evaluation Metrics:
+      
       Accuracy
+      
       Precision
+      
       Recall
+      
       F1-Score
 
 
   2️.URL Phishing Model (Hybrid Approach)
+    
     This model combines two information sources:
 
   A.Character-Level Encoding
+    
     URLs encoded character-by-character
+    
     Learned embeddings + positional encoding
+    
     Transformer Encoder (2 layers)
 
   B.Engineered Features
 
   Examples:
+    
     URL length
+    
     Domain length
+    
     HTTPS usage
+    
     Digit & special character ratios
+    
     Obfuscation indicators
 
   Final Architecture:
@@ -79,9 +104,13 @@ System Architecture
 
 
   Evaluation Metrics:
+    
     Accuracy
+    
     Precision
+    
     Recall
+    
     F1-Score
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
