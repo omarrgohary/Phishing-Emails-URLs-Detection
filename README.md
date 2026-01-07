@@ -1,200 +1,197 @@
-🔐 Phishing Detection System using Deep Learning
+🛡️ Phishing Detection System (Email & URL)
 
-Email & URL Phishing Detection with BERT and Transformer Models
+This repository contains a Transformer-based phishing detection system capable of identifying phishing attempts in emails (subject and body) and URLs.
+The system is built using DistilBERT models and provides an interactive Gradio interface for real-time predictions.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-📌 Project Overview:
+⚠️ Important:
+Trained models are not included in this repository.
+The codebase is intentionally designed to train models, save them to Google Drive, and later load them from Drive for inference in the interface.
 
-Phishing attacks remain one of the most common cybersecurity threats, targeting users through malicious emails and fraudulent URLs.
-This project presents a dual-model phishing detection system that identifies phishing attempts using deep learning and NLP techniques.
+📌 Features
 
-The system consists of:
-Email Phishing Detection using DistilBERT
+Detects phishing emails using subject and body text
 
-URL Phishing Detection using a Hybrid Transformer + Feature-Based Model
+Detects phishing URLs
 
-Both models are trained, evaluated, and tested independently using real-world datasets.
-  
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Key Features:
-  
-  Uses state-of-the-art NLP models (DistilBERT) for email classification
-  
-  Character-level Transformer encoder for URL analysis
-  
-  Combines engineered URL features with learned representations
-  
-  Prevents data leakage by removing label-related keywords
-  
-  Supports real-world inference on unseen emails and URLs
-  
-  GPU-accelerated (runs on CUDA if available)
+Uses Transformer-based NLP models (DistilBERT)
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Datasets Used
-  A.Email Dataset
-    CEAS 2008 Email Dataset
-    Fields used: subject, body, sender, label
-    Labels:
-      0 → Legitimate
-      1 → Phishing
+Supports training, saving, loading, and inference
 
-  B.URL Dataset
-    PhiUSIIL Phishing URL Dataset
-    Includes:
-      Raw URLs
-      18 engineered features (lengths, ratios, HTTPS flag, obfuscation metrics)
-      
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-System Architecture
-  1.Email Phishing Model (NLP-Based)
-    Tokenizer: DistilBertTokenizer
-    Backbone: DistilBertModel
-    Classifier: Fully Connected + Dropout
+Avoids retraining by reusing saved models
 
-    A.Input:
-      
-      Subject [SEP] Body
-      
-      Loss: Cross-Entropy
-      
-      Optimizer: AdamW
-      
-      Max Sequence Length: 256
+Includes a user-friendly Gradio web interface
 
-    B.Evaluation Metrics:
-      
-      Accuracy
-      
-      Precision
-      
-      Recall
-      
-      F1-Score
+Runs on CPU or GPU
+
+🧠 Models
+Email Phishing Model
+
+Base model: distilbert-base-uncased
+
+Architecture: DistilBERT + custom classification head
+
+Input:
+
+Email subject
+
+Email body
+
+Output:
+
+Phishing / Legitimate
+
+URL Phishing Model
+
+Base model: distilbert-base-uncased
+
+Architecture: AutoModelForSequenceClassification
+
+Input:
+
+URL text
+
+Output:
+
+Phishing / Legitimate
+
+📂 Repository Structure
+.
+├── app.py                         # Gradio interface (loads models from Drive)
+├── Interface.ipynb                # Notebook version of the interface
+├── Model_Training_&_Saving.ipynb  # Full training & saving workflow
+├── TrainEmailModel.py             # Email model training & saving
+├── TrainURLModel.py               # URL model training & saving
 
 
-  2️.URL Phishing Model (Hybrid Approach)
-    
-    This model combines two information sources:
+📌 The trained models are stored in Google Drive, not in this repository.
 
-  A.Character-Level Encoding
-    
-    URLs encoded character-by-character
-    
-    Learned embeddings + positional encoding
-    
-    Transformer Encoder (2 layers)
+📊 Datasets
 
-  B.Engineered Features
+Email dataset: CEAS_08.csv
 
-  Examples:
-    
-    URL length
-    
-    Domain length
-    
-    HTTPS usage
-    
-    Digit & special character ratios
-    
-    Obfuscation indicators
+URL dataset: new_data_urls.csv
 
-  Final Architecture:
-    [Transformer Output] + [Feature MLP] → Classifier
+Datasets are:
+
+Cleaned
+
+Deduplicated
+
+Balanced
+
+Preprocessed to avoid label leakage
+
+🔐 Leakage Prevention
+
+To prevent the models from learning explicit label cues, the following words are removed from text before training:
+
+spam
+
+phish
+
+phishing
+
+ham
+
+This ensures the models learn semantic patterns rather than keyword hints.
+
+📦 Training, Saving & Loading Workflow
+
+This project follows a three-stage workflow.
+
+1️⃣ Training
+
+Models are trained using the provided scripts:
+
+python TrainEmailModel.py
+python TrainURLModel.py
 
 
-  Evaluation Metrics:
-    
-    Accuracy
-    
-    Precision
-    
-    Recall
-    
-    F1-Score
+Training includes:
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tokenization
 
-Data Leakage Prevention:
-To ensure fair evaluation, label-leaking keywords are removed during preprocessing:
-spam, phish, phishing, ham
-This prevents the model from learning trivial shortcuts.
+Fine-tuning DistilBERT
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Installation & Setup
-  A.Clone the Repository
-    git clone https://github.com/your-username/phishing-detection-system.git
-    cd phishing-detection-system
+Evaluation using accuracy, precision, recall, and F1-score
 
-  B.Install Dependencies
-    pip install torch transformers torchtext tqdm pandas numpy scikit-learn
+2️⃣ Saving Models to Google Drive
 
-The project was developed and tested on Google Colab with GPU support.
+After training, models and tokenizers are automatically saved to:
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-How to Run:
-  
-  Upload the datasets when prompted (Google Colab)
-  
-  Run all cells sequentially
+/content/drive/MyDrive/phishing_models/
+├── email/
+│   ├── email_model.pt
+│   └── tokenizer files
+└── url/
+    ├── model files
+    └── tokenizer files
 
-The script will:
-  
-  Train both models
-  
-  Evaluate performance
-  
-  Test on unseen CSV samples
-  
-  Run real-world email predictions
 
-Sample Output:
-  
-  Email Prediction:
-  Subject: Urgent: Verify your bank account immediately
-  Prediction: Phishing
+⚠️ Models are not pushed to GitHub due to size limitations.
 
-  URL Prediction:
- 
-  URL: http://secure-login-paypal.verify-user.com
-  
-  Prediction: Phishing
-    
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Results Summary:
+3️⃣ Loading Models for Inference
 
-Both models achieve strong performance across all evaluation metrics, demonstrating the effectiveness of:
+The interface loads models directly from Google Drive:
 
-Transformer-based NLP for email security
+BASE_PATH = "/content/drive/MyDrive/phishing_models"
 
-Hybrid deep learning + feature engineering for URL analysis
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Use Cases:
-  Email security gateways
-  
-  SOC phishing analysis tools
-  
-  Academic research in cybersecurity & NLP
-  
-  ML-based fraud detection systems
+No retraining is required
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Technologies Used:
+If models are missing, the interface will show a warning
 
-  Python 3
-  
-  PyTorch
-  
-  HuggingFace Transformers
-  
-  Scikit-learn
-  
-  Google Colab (CUDA)
+This allows fast reuse of trained models
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Author:
+🖥️ Running the Interface
 
-  Omar EL Gohary | Linkedin: https://www.linkedin.com/in/omarelgohary2003/ | Penetration Testing | Network Security | AI for Security
-  
-  Youssef Mohamed Azmy | Linkedin: https://www.linkedin.com/in/youssef-azmy/ |  Machine Learning & Deep Learning Enthusiast
+After training and saving the models:
+
+python app.py
+
+
+This launches a Gradio interface where users can:
+
+Enter an email subject
+
+Enter an email body
+
+Enter a URL (optional)
+
+The system returns:
+
+Email prediction with confidence score
+
+URL prediction with confidence score
+
+⚙️ Installation
+
+Install required dependencies:
+
+pip install torch transformers datasets scikit-learn pandas gradio tqdm
+
+🧪 Evaluation Metrics
+
+Model performance is evaluated using:
+
+Accuracy
+
+Precision
+
+Recall
+
+F1-score
+
+Metrics are displayed during training.
+
+📌 Notes
+
+Models are intentionally excluded from the repository
+
+Google Drive is required for model storage
+
+The interface depends on Drive-stored models
+
+Supports CPU and GPU execution
+
+Designed for reuse, experimentation, and deployment
