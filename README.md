@@ -207,6 +207,7 @@ Metrics are displayed during the training process.
 Omar EL Gohary
 - **LinkedIn:** [linkedin.com/in/omarelgohary2003](https://www.linkedin.com/in/omarelgohary2003/)
 * **Email:** [omarrmgohary@gmail.com](mailto:omarrmgohary@gmail.com)
+
 Youssef Azmy
 - **LinkedIn:** [linkedin.com/in/omarelgohary2003](https://www.linkedin.com/in/youssef-azmy/)
 
