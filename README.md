@@ -200,3 +200,13 @@ Metrics are displayed during the training process.
 * The interface depends on Drive-stored models
 * Supports both CPU and GPU execution
 * Designed for reuse, experimentation, and deployment
+
+---
+
+## Authors : 
+Omar EL Gohary
+- **LinkedIn:** [linkedin.com/in/omarelgohary2003](https://www.linkedin.com/in/omarelgohary2003/)
+* **Email:** [omarrmgohary@gmail.com](mailto:omarrmgohary@gmail.com)
+Youssef Azmy
+- **LinkedIn:** [linkedin.com/in/omarelgohary2003](https://www.linkedin.com/in/youssef-azmy/)
+
